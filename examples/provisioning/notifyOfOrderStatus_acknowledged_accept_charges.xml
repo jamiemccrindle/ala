@@ -1,0 +1,56 @@
+<notifyOfOrderStatus xmlns="http://www.niccstandards.org.uk/ala_1.0.xsd">
+
+  <message>  
+    <messageId>b68b2cf4-475e-11e1-a92e-fb2ff6467c99</messageId>
+    <correlationId>bac72cfa-475e-11e1-a92e-fb2ff6467c99</correlationId>
+    <sentAt>2012-01-20T18:30:43Z</sentAt>
+  </message>
+  
+  <buyer>
+    <buyerIdentifier>1234567890</buyerIdentifier>
+  </buyer>
+
+  <seller>
+    <sellerIdentifier>1234567890</sellerIdentifier>
+  </seller>
+
+  <orderReferences>
+    <sellerOrderReference>1234567</sellerOrderReference>
+    <buyerOrderReference>1234567</buyerOrderReference>
+  </orderReferences>
+
+  <issuedAt>2012-01-20T18:30:43Z</issuedAt>
+  <sequenceNumber>2</sequenceNumber>
+
+  <alaOrderStatus>
+    <acknowledged/>
+  </alaOrderStatus>
+
+  <alaOrderInProgress>
+
+    <additionalCharges>
+      <additionalCharge>
+        <additionalChargeType><serviceCharge/></additionalChargeType> <!-- for the main service or an ancillary service -->
+        <additionalChargeProductName>Home Install</additionalChargeProductName> <!-- if it is an ancillary service -->
+        <additionalChargeCode>23456</additionalChargeCode>
+        <additionalChargeMessage>Bork</additionalChargeMessage>
+        <additionalChargeAmount>12.43</additionalChargeAmount>
+      </additionalCharge>
+    </additionalCharges>
+
+    <delayed>
+      <awaitingResponse><awaitingAcceptCharges/></awaitingResponse>
+      <delayCode>123456</delayCode>
+      <delayMessage>Delayed</delayMessage>
+    </delayed>
+
+  </alaOrderInProgress>
+
+  <slaClock>
+    <slaClockStatus><stopped/></slaClockStatus>
+    <slaClockTime>P24M</slaClockTime>
+  </slaClock>
+
+  <notes></notes>
+
+</notifyOfOrderStatus>

@@ -1,0 +1,49 @@
+<validateMacResponse xmlns="http://www.niccstandards.org.uk/ala_1.0.xsd">
+
+  <message>  
+    <messageId>b68b2cf4-475e-11e1-a92e-fb2ff6467c99</messageId>
+    <correlationId>bac72cfa-475e-11e1-a92e-fb2ff6467c99</correlationId>
+    <sentAt>2012-01-20T18:30:43Z</sentAt>
+  </message>
+  
+  <buyer>
+    <buyerIdentifier>1234567890</buyerIdentifier>
+  </buyer>
+
+  <seller>
+    <sellerIdentifier>1234567890</sellerIdentifier>
+  </seller>
+
+  <validateMacAccepted>
+
+    <location>
+      <addressKey>1234567</addressKey>
+      <britishAddress>
+        <buildingName>490 Example Cottage</buildingName>
+        <thoroughfareName>High St</thoroughfareName>
+        <dependentLocality>Market Deeping</dependentLocality>
+        <postTown>Peterborough</postTown>
+        <postcode>PE6 8ED</postcode>
+      </britishAddress>
+
+      <availableProducts>
+        <availableProduct>
+          <productName>NetCo 100Mbps Symmetric Broadband</productName>
+        </availableProduct>
+        <availableProduct>
+          <productName>NetCo 200Mbps Symmetric Broadband</productName>
+        </availableProduct>
+      </availableProducts>
+
+    </location>
+
+    <products>
+      <product>
+        <productName>NetCo 100Mbps Symmetric Broadband</productName>
+      </product>
+    </products>
+
+    <macStatus><valid/></macStatus>
+  </validateMacAccepted>
+
+</validateMacResponse>

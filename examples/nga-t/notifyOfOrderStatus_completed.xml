@@ -1,0 +1,95 @@
+<notifyOfOrderStatus xmlns="http://www.niccstandards.org.uk/ala_1.0.xsd"
+                     xmlns:ngat="http://www.niccstandards.org.uk/nga-t_1.0.xsd">
+
+  <message>  
+    <messageId>b68b2cf4-475e-11e1-a92e-fb2ff6467c99</messageId>
+    <correlationId>bac72cfa-475e-11e1-a92e-fb2ff6467c99</correlationId>
+    <sentAt>2012-01-20T18:30:43Z</sentAt>
+  </message>
+  
+  <buyer>
+    <buyerIdentifier>1234567890</buyerIdentifier>
+  </buyer>
+
+  <seller>
+    <sellerIdentifier>1234567890</sellerIdentifier>
+  </seller>
+
+  <orderReferences>
+    <buyerOrderReference>1234567</buyerOrderReference>
+    <sellerOrderReference>1234567</sellerOrderReference>
+  </orderReferences>
+
+  <issuedAt>2012-01-20T18:30:43Z</issuedAt>
+  <sequenceNumber>6</sequenceNumber>
+
+  <alaOrderCompleted>
+
+    <location>
+      <britishAddress>
+        <buildingName>490 Example Cottage</buildingName>
+        <thoroughfareName>High St</thoroughfareName>
+        <dependentLocality>Market Deeping</dependentLocality>
+        <postTown>Peterborough</postTown>
+        <postcode>PE6 8ED</postcode>
+      </britishAddress>
+      <addressKey>1234567</addressKey>
+    </location>
+
+    <serviceIdentifier>2345432345345</serviceIdentifier>
+
+    <serviceItem>
+      <product>
+      	<productName>NetCo 100Mbps Symmetric Broadband with NGA-T</productName>
+      </product>
+      <alaServiceConfiguration>
+        <uniVlanId>20</uniVlanId>
+        <untaggedSVlanId>20</untaggedSVlanId>
+        <uniAucGroupIdentifier>Default</uniAucGroupIdentifier>
+        <pppoeIntermediateAgent><disabled/></pppoeIntermediateAgent>
+        <l2DhcpRelayAgent><disabled/></l2DhcpRelayAgent>
+        <aucRemoteId>4758903948</aucRemoteId>
+        <nniIdentifier>4758903948</nniIdentifier>
+        <nniAucGroupIdentifier>NetCoNode47Service80</nniAucGroupIdentifier>
+        <uniAucEndPointIdentifier>4758903948</uniAucEndPointIdentifier>
+        <aucCircuitId>234322</aucCircuitId>
+        <nniSVlanId>20</nniSVlanId>
+        <nniCVlandId>20</nniCVlandId>
+        <aucNniEndPoint>243433333323</aucNniEndPoint>
+        <ngat:ata>
+          <ngat:voiceGatewayProfileId>ABC2345</ngat:voiceGatewayProfileId>
+          <ngat:externalIpAddress>192.168.220.2</ngat:externalIpAddress>
+          <ngat:subnetMask>255.255.255.0</ngat:subnetMask>
+          <ngat:defaultGateway>192.168.220.254</ngat:defaultGateway>
+          <ngat:proxyServer>10.0.128.1</ngat:proxyServer>
+          <ngat:homeDomain>www.softswitch.com</ngat:homeDomain>
+          <ngat:ports>
+            <ngat:port>
+              <ngat:portId>1</ngat:portId>
+              <ngat:portProfileId>PPM234512</ngat:portProfileId>
+              <ngat:directoryNumber>+441473123456</ngat:directoryNumber>
+              <ngat:password>Abc123xYz</ngat:password>
+              <ngat:digitMapName>Abc123xYz</ngat:digitMapName>
+            </ngat:port>
+          </ngat:ports>
+        </ngat:ata>
+      </alaServiceConfiguration>
+      <auxiliaryServices>
+        <auxiliaryService>
+          <auxiliaryServiceName>Home Install</auxiliaryServiceName>
+        </auxiliaryService>
+      </auxiliaryServices>
+    </serviceItem>
+
+    <completedDate>2012-01-20T18:30:43Z</completedDate>
+
+  </alaOrderCompleted>
+
+  <slaClock>
+    <slaClockStatus><stopped/></slaClockStatus>
+    <slaClockTime>P15DT24M</slaClockTime>
+  </slaClock>
+
+  <notes></notes>
+
+</notifyOfOrderStatus>

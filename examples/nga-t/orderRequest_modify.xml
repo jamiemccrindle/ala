@@ -1,0 +1,101 @@
+<orderRequest xmlns="http://www.niccstandards.org.uk/ala_1.0.xsd" xmlns:sp="dummy" xmlns:ngat="http://www.niccstandards.org.uk/nga-t_1.0.xsd">
+
+  <message>
+    <messageId>b68b2cf4-475e-11e1-a92e-fb2ff6467c99</messageId>
+    <correlationId>bac72cfa-475e-11e1-a92e-fb2ff6467c99</correlationId>
+    <sentAt>2012-01-20T18:30:43Z</sentAt>
+  </message>
+
+  <orderReferences>
+    <buyerOrderReference>234567</buyerOrderReference>
+  </orderReferences>
+
+  <buyer>
+    <buyerIdentifier>1234567890</buyerIdentifier>
+  </buyer>
+
+  <buyerContactDetails>
+    <email>buyer@example.com</email>
+    <telephoneNumber>+12345678987654</telephoneNumber>
+  </buyerContactDetails>
+
+  <seller>
+    <sellerIdentifier>1234567890</sellerIdentifier>
+  </seller>
+
+  <alaModify>
+
+    <serviceIdentifier>2345678765434567</serviceIdentifier>
+
+    <site>
+      <accessRestrictions>
+      </accessRestrictions>
+      <onSiteContactDetails>
+        <primaryContact>
+          <email>bob@bob.com</email>
+          <telephoneNumber>+12345678987654</telephoneNumber>
+        </primaryContact>
+        <additionalContacts>
+          <additionalContact>
+            <email>bob@bob.com</email>
+            <telephoneNumber>+12345678987654</telephoneNumber>
+          </additionalContact>
+        </additionalContacts>
+      </onSiteContactDetails>
+    </site>
+
+    <appointment>
+      <appointmentReservationKey>1234567</appointmentReservationKey>
+    </appointment>
+
+    <!-- or required by date -->
+
+    <costAuthorisation>
+      <constructionCostAuthorisation>0</constructionCostAuthorisation>
+      <timeCostAuthorisation>200</timeCostAuthorisation>
+    </costAuthorisation>
+
+    <serviceItem>
+      <product>
+      	<productName>NetCo 100Mbps Symmetric Broadband with Residential ATA</productName>
+      </product>
+      <alaServiceConfiguration>
+        <uniVlanId>20</uniVlanId>
+        <untaggedSVlanId>20</untaggedSVlanId>
+        <uniAucGroupIdentifier>Default</uniAucGroupIdentifier>
+        <pppoeIntermediateAgent><disabled/></pppoeIntermediateAgent>
+        <l2DhcpRelayAgent><disabled/></l2DhcpRelayAgent>
+        <aucRemoteId>4758903948</aucRemoteId>
+        <nniIdentifier>4758903948</nniIdentifier>
+        <nniAucGroupIdentifier>NetCoNode47Service80</nniAucGroupIdentifier>
+        <sp:colourOfCpe>blue</sp:colourOfCpe>
+        <ngat:ata>
+          <ngat:voiceGatewayProfileId>ABC2345</ngat:voiceGatewayProfileId>
+          <ngat:externalIpAddress>192.168.220.2</ngat:externalIpAddress>
+          <ngat:subnetMask>255.255.255.0</ngat:subnetMask>
+          <ngat:defaultGateway>192.168.220.254</ngat:defaultGateway>
+          <ngat:proxyServer>10.0.128.1</ngat:proxyServer>
+          <ngat:homeDomain>www.softswitch.com</ngat:homeDomain>
+          <ngat:ports>
+            <ngat:port>
+              <ngat:portId>1</ngat:portId>
+              <ngat:portProfileId>PPM234512</ngat:portProfileId>
+              <ngat:directoryNumber>+441473123456</ngat:directoryNumber>
+              <ngat:password>Abc123xYz</ngat:password>
+              <ngat:digitMapName>Abc123xYz</ngat:digitMapName>
+            </ngat:port>
+          </ngat:ports>
+        </ngat:ata>
+      </alaServiceConfiguration>
+      <auxiliaryServices>
+        <auxiliaryService>
+          <auxiliaryServiceName>Home Install</auxiliaryServiceName>
+        </auxiliaryService>
+      </auxiliaryServices>
+    </serviceItem>
+
+  </alaModify>
+
+  <notes></notes>
+
+</orderRequest>

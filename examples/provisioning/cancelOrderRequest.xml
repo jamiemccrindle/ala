@@ -1,0 +1,28 @@
+<cancelOrderRequest xmlns="http://www.niccstandards.org.uk/ala_1.0.xsd">
+
+  <message>
+    <messageId>b68b2cf4-475e-11e1-a92e-fb2ff6467c99</messageId>
+    <correlationId>bac72cfa-475e-11e1-a92e-fb2ff6467c99</correlationId>
+    <sentAt>2012-01-20T18:30:43Z</sentAt>
+  </message>
+  
+  <buyer>
+    <buyerIdentifier>1234567890</buyerIdentifier>
+  </buyer>
+
+  <seller>
+    <sellerIdentifier>1234567890</sellerIdentifier>
+  </seller>
+
+  <orderReferences>
+    <buyerOrderReference>1234567</buyerOrderReference>
+  </orderReferences>
+
+  <targetSellerOrderReference>123456543</targetSellerOrderReference>
+
+  <cancellationReason>
+    <cancellationReasonCode>123456</cancellationReasonCode>
+    <cancellationReasonMessage>No longer required</cancellationReasonMessage>
+  </cancellationReason>
+  
+</cancelOrderRequest>

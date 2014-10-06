@@ -1,0 +1,66 @@
+<notifyOfOrderStatus xmlns="http://www.niccstandards.org.uk/ala_1.0.xsd">
+
+  <message>
+    <messageId>b68b2cf4-475e-11e1-a92e-fb2ff6467c99</messageId>
+    <correlationId>bac72cfa-475e-11e1-a92e-fb2ff6467c99</correlationId>
+    <sentAt>2012-01-20T18:30:43Z</sentAt>
+  </message>
+
+  <buyer>
+    <buyerIdentifier>1234567890</buyerIdentifier>
+  </buyer>
+
+  <seller>
+    <sellerIdentifier>1234567890</sellerIdentifier>
+  </seller>
+
+  <orderReferences>
+    <buyerOrderReference>1234567</buyerOrderReference>
+    <sellerOrderReference>1234567</sellerOrderReference>
+  </orderReferences>
+
+  <issuedAt>2012-01-20T18:30:43Z</issuedAt>
+  <sequenceNumber>4</sequenceNumber>
+
+  <alaOrderStatus>
+    <committed/>
+  </alaOrderStatus>
+
+  <alaOrderInProgress>
+    <location>
+      <britishAddress>
+        <buildingName>490 Example Cottage</buildingName>
+        <thoroughfareName>High St</thoroughfareName>
+        <dependentLocality>Market Deeping</dependentLocality>
+        <postTown>Peterborough</postTown>
+        <postcode>PE6 8ED</postcode>
+      </britishAddress>
+      <addressKey>1234567</addressKey>
+    </location>
+    <serviceIdentifier>2345432345345</serviceIdentifier>
+    <auxiliaryServiceCancellations>
+      <auxiliaryServiceCancellation>
+        <auxiliaryServiceName>Home Install</auxiliaryServiceName>
+        <cancellationReason>
+          <cancelledBy>
+            <buyer/>
+          </cancelledBy>
+          <cancellationReasonCode>123456</cancellationReasonCode>
+          <cancellationReasonMessage>No longer required</cancellationReasonMessage>
+        </cancellationReason>
+      </auxiliaryServiceCancellation>
+    </auxiliaryServiceCancellations>
+    <requestedDate>2012-01-20T18:30:43Z</requestedDate>
+    <committedDate>2012-01-20T18:30:43Z</committedDate>
+  </alaOrderInProgress>
+
+  <slaClock>
+    <slaClockStatus>
+      <running/>
+    </slaClockStatus>
+    <slaClockTime>P10DT24M</slaClockTime>
+  </slaClock>
+
+  <notes></notes>
+
+</notifyOfOrderStatus>

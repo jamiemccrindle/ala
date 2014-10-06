@@ -1,0 +1,71 @@
+<!-- note this is a work in progress -->
+
+<raiseFault>
+
+  <message>  
+    <messageId>123456</messageId>
+    <correlationId>23456</correlationId>
+    <sentAt>2012-01-20T18:30:43</sentAt>
+  </message>
+
+  <buyer>
+    <buyerFaultReference>1234567</buyerFaultReference>
+    <buyerIdentifier>1234567890</buyerIdentifier>
+    <buyerContactDetails>
+      <email>buyer@example.com</email>
+      <mobile>+12345678987654</mobile>
+    </buyerContactDetails>
+  </buyer>
+
+  <seller>
+    <sellerIdentifier>1234567890</sellerIdentifier>
+  </seller>
+  
+  <service>
+    <serviceIdentifier>1234567</serviceIdentifier>
+  </service>
+  
+  <appointment>
+    <appointmentReservationKey>1234567</appointmentReservationKey>
+  </appointment>
+  
+  <endUser>
+    <endUserName>Bob Smith</endUserName>
+    <firstContactDetails>
+      <email>bob@bob.com</email>
+      <mobile>+12345678987654</mobile>
+    </firstContactDetails>
+    <secondContactDetails>
+      <email>bob@bob.com</email>
+      <mobile>+12345678987654</mobile>
+    </secondContactDetails>
+  </endUser>
+
+  <fault>
+    <shortDescription>Cuts out intermittently</shortDescription>
+    <testReference>234543</testReference>
+    <expediteLevel>3</expediteLevel>
+    <maximumTimeRelatedChargesAuthorisation>£200</maximumTimeRelatedChargesAuthorisation>
+    <faultOccurredDate>2005-07-16T08:55:00</faultOccurredDate>
+    <lastWorkingDate>2005-07-15T10:55:00</lastWorkingDate>
+    <standardQuestions>
+      <serviceCurrentlyInUse>N</serviceCurrentlyInUse>
+      <serviceHasWorked>Y</serviceHasWorked>
+      <powerChecked>Y</powerChecked>
+      <equipmentChecked>Y</equipmentChecked>
+      <recentIncreaseInUsersApplicationorData>This is a string describing changes in useage,</recentIncreaseInUsersApplicationorData>
+      <recentChangesOrOrders>This is a string highlighting any changes to the configuration of the service recently.</recentChangesOrOrders>
+      <disruptiveTestsAllowed>Y</disruptiveTestsAllowed>
+      <downTimes>This is a string stating when the service can be taken down for diagnostics and repair</downTimes>
+      <networkAlarms>N</networkAlarms>
+      <twentyFourHourAccess>N</twentyFourHourAccess>
+      <eUEquipmentDisconnected>Y</eUEquipmentDisconnected>
+    </standardQuestions>
+    <accessRestrictions>
+      ???
+    </accessRestrictions>
+  </fault>
+
+  <notes></notes>
+
+</raiseFault>

@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:ngat="http://www.niccstandards.org.uk/nga-t_1.0.xsd"
+           targetNamespace="http://www.niccstandards.org.uk/nga-t_1.0.xsd"
+           elementFormDefault="qualified">
+
+  <xs:annotation>
+    <xs:documentation>
+      Schema description for the NICC NGA-T extensions to the Active Line Access B2B protocol
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name="ata">
+    <xs:annotation>
+      <xs:documentation>
+        NGA-T ATA
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="1" name="voiceGatewayProfileId" type="ngat:voiceGatewayProfileId"/>
+        <xs:element maxOccurs="1" name="addressingType" type="ngat:addressingType"/>
+        <xs:element maxOccurs="1" name="externalIpAddress" type="ngat:externalIpAddress"/>
+        <xs:element maxOccurs="1" name="subnetMask" type="ngat:subnetMask"/>
+        <xs:element maxOccurs="1" name="defaultGateway" type="ngat:defaultGateway"/>
+        <xs:element maxOccurs="1" name="dnsServerAddress" type="ngat:dnsServerAddress"/>
+        <xs:element maxOccurs="1" name="proxyServer" type="ngat:proxyServer"/>
+        <xs:element maxOccurs="1" name="proxyServerPort" type="ngat:proxyServerPort"/>
+        <xs:element maxOccurs="1" name="secondaryProxyServer" type="ngat:secondaryProxyServer"/>
+        <xs:element maxOccurs="1" name="secondaryProxyServerPort" type="ngat:secondaryProxyServerPort"/>
+        <xs:element maxOccurs="1" name="homeDomain" type="ngat:homeDomain"/>
+        <xs:element maxOccurs="1" name="ports" type="ngat:ports"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="ports">
+    <xs:choice maxOccurs="1">
+      <xs:element maxOccurs="unbounded" name="port" type="ngat:port" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="port">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="portId" type="ngat:portId"/>
+      <xs:element maxOccurs="1" name="portProfileId" type="ngat:portProfileId"/>
+      <xs:element maxOccurs="1" name="password" type="ngat:password"/>
+      <xs:element maxOccurs="1" name="directoryNumber" type="ngat:directoryNumber"/>
+      <xs:element maxOccurs="1" name="userName" type="ngat:userName"/>
+      <xs:element maxOccurs="1" name="digitMapName" type="ngat:digitMapName"/>
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="addressingType">
+    <xs:choice maxOccurs="1">
+      <xs:element name="dhcp">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="static">
+        <xs:complexType />
+      </xs:element>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="dtmfMethod">
+    <xs:choice maxOccurs="1">
+      <xs:element name="inBand">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="dtmfRelay">
+        <xs:complexType />
+      </xs:element>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="digitSendingMode">
+    <xs:choice maxOccurs="1">
+      <xs:element name="enBlock">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="overlapMultipleInvoices">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="overlapInDialogue">
+        <xs:complexType />
+      </xs:element>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="threeWayCallingMechanism">
+    <xs:choice maxOccurs="1">
+      <xs:element name="ataBased">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="networkBased">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="notSupported">
+        <xs:complexType />
+      </xs:element>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:simpleType name="portId">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="64"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="portProfileId">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="64"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="voiceGatewayProfileId">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="64"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="password">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="25"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="externalIpAddress">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="15"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="subnetMask">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="15"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="defaultGateway">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="15"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="dnsServerAddress">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="64"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="proxyServer">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="63"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="proxyServerPort">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="65535"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="secondaryProxyServer">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="63"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="secondaryProxyServerPort">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="65535"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="homeDomain">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="63"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="localPort">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="1024"/>
+      <xs:maxInclusive value="41951"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="registrationPeriod">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="30"/>
+      <xs:maxInclusive value="65534"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="maxAdaptiveJb">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="200"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="minAdaptiveJb">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="200"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="initialAdaptiveJb">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="200"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="initialFixedJb">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="200"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="conferenceServer">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="63"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="directoryNumber">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="32"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="userName">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="50"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="digitMapName">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="64"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="sendGain">
+    <xs:restriction base="xs:integer">
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="receiveGain">
+    <xs:restriction base="xs:integer">
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="adaptiveJitterBuffer">
+    <xs:restriction base="xs:boolean">
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="lineReversalOnAnswer">
+    <xs:restriction base="xs:boolean">
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="voiceCodecsList">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="96"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+
+</xs:schema>
+

@@ -1,0 +1,2070 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:ala="http://www.niccstandards.org.uk/ala_1.0.xsd"
+           targetNamespace="http://www.niccstandards.org.uk/ala_1.0.xsd"
+           elementFormDefault="qualified">
+
+  <xs:annotation>
+    <xs:documentation>
+      Schema description for the NICC Active Line Access B2B protocol
+    </xs:documentation>
+  </xs:annotation>
+
+  <!-- top level elements -->
+
+  <xs:element name="orderRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Order a new service, orders can be migrations, new installs, modifies or ceases
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="1" name="message" type="ala:message" />
+        <xs:element maxOccurs="1" name="orderReferences" type="ala:orderReferences" />
+        <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+        <xs:element maxOccurs="1" name="buyerContactDetails" type="ala:buyerContactDetails" />
+        <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+        <xs:choice maxOccurs="1">
+          <xs:element name="alaMigration" type="ala:alaMigration" />
+          <xs:element name="alaNewInstall" type="ala:alaNewInstall" />
+          <xs:element name="alaModify" type="ala:alaModify" />
+          <xs:element name="alaCease" type="ala:alaCease" />
+        </xs:choice>
+        <xs:element maxOccurs="1" name="notes" type="ala:notes" />
+        <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="orderResponse"/>
+
+  <xs:element name="notifyOfOrderStatus" type="ala:notifyOfOrderStatus"/>
+
+  <xs:complexType name="notifyOfOrderStatus">
+    <xs:annotation>
+      <xs:documentation>
+        Messages sent back to the ALA user to indicate progress of an order. To facilitate
+        correct construction of messages, these messages will either contain an alaOrderInProgress
+        message if the order is in progress, alaOrderFailed if the order has failed and
+        alaOrderCompleted if the order has completed.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="message" type="ala:message" />
+      <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+      <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+      <xs:element maxOccurs="1" name="orderReferences" type="ala:orderReferences" />
+      <xs:element maxOccurs="1" name="sequenceNumber" type="ala:sequenceNumber" />
+      <xs:element maxOccurs="1" name="issuedAt" type="ala:issuedAt" />
+      <xs:element maxOccurs="1" name="slaClock" type="ala:slaClock" />
+      <xs:element maxOccurs="1" name="alaOrderStatus" type="ala:alaOrderStatus" />
+
+      <xs:choice maxOccurs="1">
+        <xs:element name="alaOrderInProgress" type="ala:alaOrderInProgress" />
+        <xs:element name="alaOrderFailed" type="ala:alaOrderFailed" />
+        <xs:element name="alaOrderCompleted" type="ala:alaOrderCompleted" />
+      </xs:choice>
+
+      <xs:element maxOccurs="1" name="notes" type="ala:notes" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:element name="notifyOfOrderStatusResponse"/>
+
+  <xs:element name="amendOrderRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Request to amend an in flight order.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="1" name="message" type="ala:message" />
+        <xs:element maxOccurs="1" name="orderReferences" type="ala:orderReferences" />
+        <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+        <xs:element maxOccurs="1" name="buyerContactDetails" type="ala:buyerContactDetails" />
+        <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+        <xs:element maxOccurs="1" name="targetSellerOrderReference" type="ala:sellerOrderReference" />
+        <xs:element maxOccurs="1" name="acceptCharges" type="ala:acceptCharges" />
+        <xs:element maxOccurs="1" name="notes" type="ala:notes" />
+        <xs:element maxOccurs="1" name="appointment" type="ala:appointment" />
+        <xs:element maxOccurs="1" name="requestedDate" type="ala:requestedDate" />
+        <xs:element maxOccurs="1" name="serviceItem" type="ala:serviceItem" />
+        <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="amendOrderResponse">
+    <xs:annotation>
+      <xs:documentation>
+        An ALA Provider can either respond that the amendment is pending or can reject the amendment up front.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="1" name="message" type="ala:message" />
+        <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+        <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+        <xs:element maxOccurs="1" name="orderReferences" type="ala:orderReferences" />
+        <xs:choice maxOccurs="1">
+          <xs:element name="amendmentPending" type="ala:amendmentPending" />
+          <xs:element name="amendmentRejected" type="ala:amendmentRejected" />
+        </xs:choice>
+        <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="cancelOrderRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Request to cancel an in flight order
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="1" name="message" type="ala:message" />
+        <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+        <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+        <xs:element maxOccurs="1" name="orderReferences" type="ala:orderReferences" />
+        <xs:element maxOccurs="1" name="targetSellerOrderReference" type="ala:sellerOrderReference" />
+        <xs:element maxOccurs="1" name="cancellationReason" type="ala:cancellationReason" />
+        <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="cancelOrderResponse">
+    <xs:annotation>
+      <xs:documentation>
+        The ALA Provider can either respond that the cancellation is pending or reject it up front.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="1" name="message" type="ala:message" />
+        <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+        <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+        <xs:element maxOccurs="1" name="orderReferences" type="ala:orderReferences" />
+        <xs:choice maxOccurs="1">
+          <xs:element name="cancellationPending" type="ala:cancellationPending" />
+          <xs:element name="cancellationRejected" type="ala:cancellationRejected" />
+        </xs:choice>
+        <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- unsolicited cease -->
+
+  <xs:element name="unsolicitedCeaseRequest" type="ala:unsolicitedCeaseRequest"/>
+
+  <xs:complexType name="unsolicitedCeaseRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Unsolicited ceases are sent by the ALA Provider to the ALA User to indicate that a service
+        is being ceased.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="message" type="ala:message" />
+      <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+      <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+      <xs:element maxOccurs="1" name="orderReferences" type="ala:orderReferences" />
+      <xs:element maxOccurs="1" name="serviceIdentifier" type="ala:serviceIdentifier" />
+      <xs:element maxOccurs="1" name="requestedDate" type="ala:requestedDate" />
+      <xs:element maxOccurs="1" name="notes" type="ala:notes" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:element name="unsolicitedCeaseResponse"/>
+
+  <!-- mac request -->
+
+  <xs:element name="macRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Request a MAC
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="1" name="message" type="ala:message" />
+        <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+        <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+        <xs:element maxOccurs="1" name="serviceIdentifiers" type="ala:serviceIdentifiers" />
+        <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="macResponse">
+    <xs:annotation>
+      <xs:documentation>
+        An ALA Provider can either return a MAC or reject the request
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="1" name="message" type="ala:message" />
+        <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+        <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+        <xs:choice maxOccurs="1">
+          <xs:element maxOccurs="1" name="macAccepted" type="ala:macAccepted" />
+          <xs:element maxOccurs="1" name="macRejected" type="ala:dialogueServiceRejected" />
+        </xs:choice>
+        <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="macAccepted">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="mac" type="ala:mac" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <!-- query installation details -->
+
+  <xs:element name="queryInstallationDetailsRequest">
+    <xs:annotation>
+      <xs:documentation>
+        Query the current configuration of an active service
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="1" name="message" type="ala:message" />
+        <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+        <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+        <xs:element maxOccurs="1" name="serviceIdentifier" type="ala:serviceIdentifier" />
+        <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="queryInstallationDetailsResponse">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="1" name="message" type="ala:message" />
+        <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+        <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+        <xs:element maxOccurs="1" name="queryInstallationDetailsAccepted" type="ala:queryInstallationDetailsAccepted" />
+        <xs:element maxOccurs="1" name="queryInstallationDetailsRejected" type="ala:dialogueServiceRejected" />
+        <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="queryInstallationDetailsAccepted">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="activeService" type="ala:activeService" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <!-- query line availability -->
+
+  <xs:element name="queryLineAvailabilityRequest">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="1" name="message" type="ala:message" />
+        <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+        <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+        <xs:element maxOccurs="1" name="addressKey" type="ala:addressKey" />
+        <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="queryLineAvailabilityResponse">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="1" name="message" type="ala:message" />
+        <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+        <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+        <xs:element maxOccurs="1" name="queryLineAvailabilityAccepted" type="ala:queryLineAvailabilityAccepted" />
+        <xs:element maxOccurs="1" name="queryLineAvailabilityRejected" type="ala:dialogueServiceRejected" />
+        <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="queryLineAvailabilityAccepted">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="activeServices" type="ala:activeServices" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <!-- query order status -->
+
+  <xs:element name="queryOrderStatusRequest">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="1" name="message" type="ala:message" />
+        <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+        <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+        <xs:element maxOccurs="1" name="buyerOrderReferences" type="ala:buyerOrderReferences" />
+        <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="queryOrderStatusResponse">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="1" name="message" type="ala:message" />
+        <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+        <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+        <xs:choice maxOccurs="1">
+          <xs:element maxOccurs="1" name="queryOrderStatusAccepted" type="ala:queryOrderStatusAccepted" />
+          <xs:element maxOccurs="1" name="queryOrderStatusRejected" type="ala:dialogueServiceRejected" />
+        </xs:choice>
+        <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="queryOrderStatusAccepted">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="orderStatuses" type="ala:orderStatuses" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+
+  <!-- validate mac request -->
+
+  <xs:element name="validateMacRequest">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="1" name="message" type="ala:message" />
+        <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+        <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+        <xs:element maxOccurs="1" name="mac" type="ala:mac" />
+        <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="validateMacResponse">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="1" name="message" type="ala:message" />
+        <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+        <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+        <xs:choice maxOccurs="1">
+          <xs:element maxOccurs="1" name="validateMacAccepted" type="ala:validateMacAccepted" />
+          <xs:element maxOccurs="1" name="validateMacRejected" type="ala:dialogueServiceRejected" />
+        </xs:choice>
+        <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="validateMacAccepted">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="products" type="ala:products" />
+      <xs:element maxOccurs="1" name="location" type="ala:location" />
+      <xs:element name="macStatus">
+        <xs:complexType>
+          <xs:choice maxOccurs="1">
+            <xs:element name="valid">
+              <xs:complexType />
+            </xs:element>
+            <xs:element name="invalid">
+              <xs:complexType />
+            </xs:element>
+            <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <!-- network availability -->
+
+  <xs:element name="queryProductsForLocationRequest">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="1" name="message" type="ala:message" />
+        <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+        <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+        <xs:element maxOccurs="1" name="telephoneNumber" type="ala:telephoneNumber" />
+        <xs:element maxOccurs="1" name="location" type="ala:location" />
+        <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="queryProductsForLocationResponse">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="1" name="message" type="ala:message" />
+        <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+        <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+        <xs:choice maxOccurs="1">
+          <xs:element maxOccurs="1" name="queryProductsForLocationAccepted" type="ala:queryProductsForLocationAccepted" />
+          <xs:element maxOccurs="1" name="queryProductsForLocationRejected" type="ala:dialogueServiceRejected" />
+        </xs:choice>
+        <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="queryProductsForLocationAccepted">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="availableProducts" type="ala:availableProducts" />
+      <xs:element maxOccurs="1" name="locations" type="ala:locations" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <!-- address match -->
+
+  <xs:element name="queryAddressSearchRequest">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="1" name="message" type="ala:message" />
+        <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+        <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+        <xs:element maxOccurs="1" name="location" type="ala:location" />
+        <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="queryAddressSearchResponse">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="1" name="message" type="ala:message" />
+        <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+        <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+        <xs:choice maxOccurs="1">
+          <xs:element maxOccurs="1" name="queryAddressSearchAccepted" type="ala:queryAddressSearchAccepted" />
+          <xs:element maxOccurs="1" name="queryAddressSearchRejected" type="ala:dialogueServiceRejected" />
+        </xs:choice>
+        <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="queryAddressSearchAccepted">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element name="addressKeyType" type="ala:addressKeyType"/>
+      <xs:element maxOccurs="1" name="locations" type="ala:locations" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <!-- appointment -->
+
+  <xs:element name="queryAppointmentAvailabilityRequest">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="1" name="message" type="ala:message" />
+        <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+        <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+        <xs:element maxOccurs="1" name="addressKey" type="ala:addressKey" />
+        <xs:element maxOccurs="1" name="appointmentsFrom" type="ala:appointmentsFrom" />
+        <xs:element maxOccurs="1" name="appointmentType" type="ala:appointmentType"/>
+        <xs:element maxOccurs="1" name="technology" type="ala:technology" />
+        <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="queryAppointmentAvailabilityResponse">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="1" name="message" type="ala:message" />
+        <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+        <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+        <xs:choice maxOccurs="1">
+          <xs:element maxOccurs="1" name="queryAppointmentAvailabilityAccepted" type="ala:queryAppointmentAvailabilityAccepted" />
+          <xs:element maxOccurs="1" name="queryAppointmentAvailabilityRejected" type="ala:dialogueServiceRejected" />
+        </xs:choice>
+        <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="queryAppointmentAvailabilityAccepted">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="appointmentSlots" type="ala:appointmentSlots" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <!-- reserve appointment -->
+
+  <xs:element name="reserveAppointmentRequest">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="1" name="message" type="ala:message" />
+        <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+        <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+        <xs:element maxOccurs="1" name="appointmentSlot" type="ala:appointmentSlot" />
+        <xs:element maxOccurs="1" name="appointmentType" type="ala:appointmentType" />
+        <xs:element maxOccurs="1" name="technology" type="ala:technology" />
+        <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="reserveAppointmentResponse">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="1" name="message" type="ala:message" />
+        <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+        <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+        <xs:choice maxOccurs="1">
+          <xs:element name="reserveAppointmentAccepted" type="ala:reserveAppointmentAccepted" />
+          <xs:element name="reserveAppointmentRejected" type="ala:dialogueServiceRejected" />
+        </xs:choice>
+        <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="reserveAppointmentAccepted">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="appointment" type="ala:appointment" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <!-- poll request -->
+
+  <xs:element name="pollRequest">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="1" name="message" type="ala:message" />
+        <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+        <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+        <xs:element maxOccurs="1" name="pollDateRange" type="ala:pollDateRange" />
+        <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="pollResponse">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="1" name="message" type="ala:message" />
+        <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+        <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+        <xs:choice maxOccurs="1">
+          <xs:element name="pollAccepted" type="ala:pollAccepted" />
+          <xs:element name="pollRejected" type="ala:pollRejected" />
+        </xs:choice>
+        <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="pollAccepted">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="pollMessages" type="ala:pollMessages" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="pollRejected">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="pollError" type="ala:pollError" />
+      <xs:element maxOccurs="1" name="validationFailures" type="ala:validationFailures"/>
+      <xs:element maxOccurs="1" name="systemError" type="ala:errorCodeAndMessage"/>
+      <xs:element maxOccurs="1" name="errorOther" type="ala:errorCodeAndMessage"/>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <!-- poll request -->
+
+  <xs:element name="republishRequest">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="1" name="message" type="ala:message" />
+        <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+        <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+        <xs:element maxOccurs="1" name="republishDateRange" type="ala:republishDateRange" />
+        <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="republishResponse">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="1" name="message" type="ala:message" />
+        <xs:element maxOccurs="1" name="buyer" type="ala:buyer" />
+        <xs:element maxOccurs="1" name="seller" type="ala:seller" />
+        <xs:choice maxOccurs="1">
+          <xs:element name="republishAccepted" type="ala:republishAccepted" />
+          <xs:element name="republishRejected" type="ala:republishRejected" />
+        </xs:choice>
+        <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="republishAccepted">
+    <xs:choice maxOccurs="unbounded">
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="republishRejected">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="republishError" type="ala:republishError" />
+      <xs:element maxOccurs="1" name="validationFailures" type="ala:validationFailures"/>
+      <xs:element maxOccurs="1" name="systemError" type="ala:errorCodeAndMessage"/>
+      <xs:element maxOccurs="1" name="errorOther" type="ala:errorCodeAndMessage"/>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <!-- complex types -->
+
+  <xs:complexType name="cancellationReason">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element name="cancelledBy">
+        <xs:complexType>
+          <xs:choice maxOccurs="1">
+            <xs:element name="buyer">
+              <xs:complexType />
+            </xs:element>
+            <xs:element name="seller">
+              <xs:complexType />
+            </xs:element>
+            <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element maxOccurs="1" name="cancellationReasonCode" type="ala:cancellationReasonCode" />
+      <xs:element maxOccurs="1" name="cancellationReasonMessage" type="ala:cancellationReasonMessage" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <!-- amendment response statuses -->
+
+  <xs:complexType name="amendmentPending">
+    <xs:choice maxOccurs="unbounded">
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="amendmentAccepted">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="amendmentReferences" type="ala:orderReferences"/>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="amendmentRejected">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="amendmentError" type="ala:amendmentError" />
+      <xs:element maxOccurs="1" name="validationFailures" type="ala:validationFailures"/>
+      <xs:element maxOccurs="1" name="systemError" type="ala:errorCodeAndMessage"/>
+      <xs:element maxOccurs="1" name="errorOther" type="ala:errorCodeAndMessage"/>
+      <xs:element maxOccurs="1" name="amendmentReferences" type="ala:orderReferences"/>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <!-- cancellation response statuses -->
+
+  <xs:complexType name="cancellationPending">
+    <xs:choice maxOccurs="unbounded">
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="cancellationRejected">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="cancellationError" type="ala:cancellationError" />
+      <xs:element maxOccurs="1" name="validationFailures" type="ala:validationFailures"/>
+      <xs:element maxOccurs="1" name="systemError" type="ala:errorCodeAndMessage"/>
+      <xs:element maxOccurs="1" name="errorOther" type="ala:errorCodeAndMessage"/>
+      <xs:element maxOccurs="1" name="cancellationReferences" type="ala:orderReferences"/>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <!-- dialogue services rejected -->
+
+  <xs:complexType name="dialogueServiceRejected">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="validationFailures" type="ala:validationFailures"/>
+      <xs:element maxOccurs="1" name="systemError" type="ala:errorCodeAndMessage"/>
+      <xs:element maxOccurs="1" name="errorOther" type="ala:errorCodeAndMessage"/>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <!-- migration response statuses -->
+
+  <xs:complexType name="alaOrderInProgress">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="additionalCharges" type="ala:additionalCharges" />
+      <xs:element maxOccurs="1" name="location" type="ala:location" />
+      <xs:element maxOccurs="1" name="appointment" type="ala:appointment" />
+      <xs:element maxOccurs="1" name="serviceItem" type="ala:serviceItem" />
+      <xs:element maxOccurs="1" name="committedDate" type="ala:committedDate" />
+      <xs:element maxOccurs="1" name="requestedDate" type="ala:requestedDate" />
+      <xs:element maxOccurs="1" name="serviceIdentifier" type="ala:serviceIdentifier" />
+      <xs:element maxOccurs="1" name="delayed" type="ala:delayed" />
+      <xs:element maxOccurs="1" name="cancellationRejected" type="ala:cancellationRejected" />
+      <xs:element maxOccurs="1" name="amendmentRejected" type="ala:amendmentRejected" />
+      <xs:element maxOccurs="1" name="amendmentAccepted" type="ala:amendmentAccepted" />
+      <xs:element maxOccurs="1" name="auxiliaryServiceCancellations" type="ala:auxiliaryServiceCancellations" />
+      <xs:element maxOccurs="1" name="warning" type="ala:warning" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="alaOrderCompleted">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="additionalCharges" type="ala:additionalCharges" />
+      <xs:element maxOccurs="1" name="location" type="ala:location" />
+      <xs:element maxOccurs="1" name="serviceIdentifier" type="ala:serviceIdentifier" />
+      <xs:element maxOccurs="1" name="serviceItem" type="ala:serviceItem" />
+      <xs:element maxOccurs="1" name="completedDate" type="ala:completedDate" />
+      <xs:element maxOccurs="1" name="auxiliaryServiceCancellations" type="ala:auxiliaryServiceCancellations" />
+      <xs:element maxOccurs="1" name="warning" type="ala:warning" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="alaOrderFailed">
+    <xs:choice maxOccurs="unbounded">
+      <xs:choice maxOccurs="1">
+        <xs:element maxOccurs="1" name="alaOrderCancelled" type="ala:alaOrderCancelled" />
+        <xs:element maxOccurs="1" name="alaOrderRejected" type="ala:alaOrderRejected"/>
+      </xs:choice>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="alaOrderCancelled">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="cancellationReason" type="ala:cancellationReason" />
+      <xs:element maxOccurs="1" name="cancellationReferences" type="ala:orderReferences"/>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="alaOrderRejected">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="orderError" type="ala:orderError" />
+      <xs:element maxOccurs="1" name="validationFailures" type="ala:validationFailures"/>
+      <xs:element maxOccurs="1" name="systemError" type="ala:errorCodeAndMessage"/>
+      <xs:element maxOccurs="1" name="errorOther" type="ala:errorCodeAndMessage"/>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <!-- additional charges -->
+
+  <xs:complexType name="additionalCharges">
+    <xs:choice maxOccurs="1">
+      <xs:element maxOccurs="unbounded" name="additionalCharge" type="ala:additionalCharge" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="additionalCharge">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="additionalChargeType">
+        <xs:complexType>
+          <xs:choice maxOccurs="1">
+            <xs:element name="serviceCharge">
+              <xs:complexType />
+            </xs:element>
+            <xs:element name="auxiliaryServiceCharge">
+              <xs:complexType />
+            </xs:element>
+            <xs:element name="otherCharge">
+              <xs:complexType />
+            </xs:element>
+            <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element maxOccurs="1" name="additionalChargeProductName" type="ala:additionalChargeProductName" />
+      <xs:element maxOccurs="1" name="additionalChargeCode" type="ala:additionalChargeCode" />
+      <xs:element maxOccurs="1" name="additionalChargeMessage" type="ala:additionalChargeMessage" />
+      <xs:element maxOccurs="1" name="additionalChargeAmount" type="ala:additionalChargeAmount" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="message">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="messageId" type="ala:messageId" />
+      <xs:element maxOccurs="1" name="correlationId" type="ala:correlationId" />
+      <xs:element maxOccurs="1" name="sentAt" type="ala:sentAt" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="orderReferences">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="buyerOrderReference" type="ala:buyerOrderReference" />
+      <xs:element maxOccurs="1" name="requiredOrderReference" type="ala:requiredOrderReference" />
+      <xs:element maxOccurs="1" name="projectOrderReference" type="ala:projectOrderReference" />
+      <xs:element maxOccurs="1" name="sellerOrderReference" type="ala:sellerOrderReference" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="buyer">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="buyerIdentifier" type="ala:buyerIdentifier" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="buyerContactDetails">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="email" type="ala:email" />
+      <xs:element maxOccurs="1" name="telephoneNumber" type="ala:telephoneNumber" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="seller">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="sellerIdentifier" type="ala:sellerIdentifier" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="alaMigration">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="mac" type="ala:mac" />
+      <xs:element maxOccurs="1" name="serviceItem" type="ala:serviceItem" />
+      <xs:element maxOccurs="1" name="requestedDate" type="ala:requestedDate" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="serviceItem">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="product" type="ala:product" />
+      <xs:element maxOccurs="1" name="alaServiceConfiguration" type="ala:alaServiceConfiguration" />
+      <xs:element maxOccurs="1" name="auxiliaryServices" type="ala:auxiliaryServices" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="orderStatuses">
+    <xs:choice maxOccurs="1">
+      <xs:element maxOccurs="unbounded" name="orderStatus" type="ala:orderStatus" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="orderStatus">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="orderReferences" type="ala:orderReferences" />
+      <xs:element maxOccurs="1" name="sequenceNumber" type="ala:sequenceNumber" />
+      <xs:element maxOccurs="1" name="alaOrderStatus" type="ala:alaOrderStatus" />
+
+      <xs:choice maxOccurs="1">
+        <xs:element name="alaOrderInProgress" type="ala:alaOrderInProgress" />
+        <xs:element name="alaOrderFailed" type="ala:alaOrderFailed" />
+        <xs:element name="alaOrderComplete" type="ala:alaOrderCompleted" />
+      </xs:choice>
+
+      <xs:element maxOccurs="1" name="notes" type="ala:notes" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="buyerOrderReferences">
+    <xs:choice maxOccurs="1">
+      <xs:element maxOccurs="unbounded" name="buyerOrderReference" type="ala:buyerOrderReference" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="pollMessages">
+    <xs:choice maxOccurs="1">
+      <xs:element maxOccurs="unbounded" name="pollMessage" type="ala:pollMessage" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="pollMessage">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="notifyOfOrderStatus" type="ala:notifyOfOrderStatus" />
+      <xs:element maxOccurs="1" name="unsolicitedCeaseRequest" type="ala:unsolicitedCeaseRequest" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="products">
+    <xs:choice maxOccurs="1">
+      <xs:element maxOccurs="unbounded" name="product" type="ala:product" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="product">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="productName" type="ala:productName" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="availableProducts">
+    <xs:choice maxOccurs="1">
+      <xs:element maxOccurs="unbounded" name="availableProduct" type="ala:availableProduct" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="additionalContacts">
+    <xs:choice maxOccurs="1">
+      <xs:element maxOccurs="unbounded" name="additionalContact" type="ala:onSiteContact" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="alaServiceConfiguration">
+    <xs:annotation>
+      <xs:documentation>
+        The AlaServiceConfiguration contains all of the configuration required to order / install an ALA service.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="uniVlanId" type="ala:uniVlanId" />
+      <xs:element maxOccurs="1" name="untaggedSVlanId" type="ala:untaggedSVlanId" />
+      <xs:element maxOccurs="1" name="uniAucGroupIdentifier" type="ala:uniAucGroupIdentifier" />
+      <xs:element maxOccurs="1" name="pppoeIntermediateAgent" type="ala:pppoeIntermediateAgent" />
+      <xs:element maxOccurs="1" name="l2DhcpRelayAgent" type="ala:l2DhcpRelayAgent" />
+      <xs:element maxOccurs="1" name="aucRemoteId" type="ala:aucRemoteId" />
+      <xs:element maxOccurs="1" name="nniIdentifier" type="ala:nniIdentifier" />
+      <xs:element maxOccurs="1" name="nniAucGroupIdentifier" type="ala:nniAucGroupIdentifier" />
+      <xs:element maxOccurs="1" name="uniAucEndPointIdentifier" type="ala:uniAucEndPointIdentifier" />
+      <xs:element maxOccurs="1" name="aucCircuitId" type="ala:aucCircuitId" />
+      <xs:element maxOccurs="1" name="nniSVlanId" type="ala:vlanId" />
+      <xs:element maxOccurs="1" name="nniCVlandId" type="ala:vlanId" />
+      <xs:element maxOccurs="1" name="aucNniEndPoint" type="ala:aucNniEndPoint" />
+
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="pppoeIntermediateAgent">
+    <xs:choice maxOccurs="1">
+      <xs:element name="enabled">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="disabled">
+        <xs:complexType />
+      </xs:element>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="l2DhcpRelayAgent">
+    <xs:choice maxOccurs="1">
+      <xs:element name="enabled">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="disabled">
+        <xs:complexType />
+      </xs:element>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="mac">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="macKey" type="ala:macKey" />
+      <xs:element maxOccurs="1" name="macValidUntil" type="ala:macValidUntil" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="availableProduct">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="productName" type="ala:productName" />
+      <xs:element maxOccurs="1" name="appointmentRequired">
+        <xs:complexType>
+          <xs:choice maxOccurs="1">
+            <xs:element name="yes">
+              <xs:complexType />
+            </xs:element>
+            <xs:element name="no">
+              <xs:complexType />
+            </xs:element>
+            <xs:element name="maybe">
+              <xs:complexType />
+            </xs:element>
+            <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="openOrders">
+    <xs:choice maxOccurs="1">
+      <xs:element maxOccurs="unbounded" name="openOrder" type="ala:openOrder" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="openOrder">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="openOrderReferences" type="ala:orderReferences" />
+      <xs:element maxOccurs="1" name="openOrderCommittedDate" type="ala:committedDate" />
+      <xs:element maxOccurs="1" name="openOrderType">
+        <xs:complexType>
+          <xs:choice maxOccurs="1">
+            <xs:element name="newInstall">
+              <xs:complexType />
+            </xs:element>
+            <xs:element name="cease">
+              <xs:complexType />
+            </xs:element>
+            <xs:element name="modify">
+              <xs:complexType />
+            </xs:element>
+            <xs:element name="migration">
+              <xs:complexType />
+            </xs:element>
+            <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="activeServices">
+    <xs:choice maxOccurs="1">
+      <xs:element maxOccurs="unbounded" name="activeService" type="ala:activeService" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="activeService">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="service" type="ala:service" />
+      <xs:element maxOccurs="1" name="openOrders" type="ala:openOrders" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="service">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="serviceIdentifier" type="ala:serviceIdentifier" />
+      <xs:element maxOccurs="1" name="alaServiceConfiguration" type="ala:alaServiceConfiguration" />
+      <xs:element maxOccurs="1" name="product" type="ala:product" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="serviceIdentifiers">
+    <xs:choice maxOccurs="1">
+      <xs:element maxOccurs="unbounded" name="serviceIdentifier" type="ala:serviceIdentifier" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="notes">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element name="note" type="ala:note" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="alaNewInstall">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="location" type="ala:location" />
+      <xs:element maxOccurs="1" name="site" type="ala:site" />
+      <xs:choice maxOccurs="1">
+        <xs:element name="appointment" type="ala:appointment" />
+        <xs:element name="appointmentSlot" type="ala:appointmentSlot" />
+        <xs:element name="requestedDate" type="ala:requestedDate" />
+      </xs:choice>
+      <xs:element maxOccurs="1" name="serviceItem" type="ala:serviceItem" />
+      <xs:element maxOccurs="1" name="costAuthorisation" type="ala:costAuthorisation" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="alaModify">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="serviceIdentifier" type="ala:serviceIdentifier" />
+      <xs:element maxOccurs="1" name="site" type="ala:site" />
+      <xs:element maxOccurs="1" name="serviceItem" type="ala:serviceItem" />
+      <xs:element maxOccurs="1" name="costAuthorisation" type="ala:costAuthorisation" />
+      <xs:choice maxOccurs="1">
+        <xs:element name="appointment" type="ala:appointment" />
+        <xs:element name="appointmentSlot" type="ala:appointmentSlot" />
+        <xs:element name="requestedDate" type="ala:requestedDate" />
+      </xs:choice>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="alaCease">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="serviceIdentifier" type="ala:serviceIdentifier" />
+      <xs:element maxOccurs="1" name="site" type="ala:site" />
+      <xs:choice maxOccurs="1">
+        <xs:element name="appointment" type="ala:appointment" />
+        <xs:element name="appointmentSlot" type="ala:appointmentSlot" />
+        <xs:element name="requestedDate" type="ala:requestedDate" />
+      </xs:choice>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="locations">
+    <xs:choice maxOccurs="1">
+      <xs:element maxOccurs="unbounded" name="location" type="ala:location" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="location">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="addressKey" type="ala:addressKey" />
+      <xs:element maxOccurs="1" name="addressKeyType" type="ala:addressKeyType" />
+      <xs:element maxOccurs="1" name="britishAddress" type="ala:britishAddress" />
+      <xs:element maxOccurs="1" name="gpsCoordinates" type="ala:gpsCoordinates" />
+      <xs:element maxOccurs="1" name="gridReference" type="ala:gridReference" />
+      <xs:element maxOccurs="1" name="availableProducts" type="ala:availableProducts" />
+      <xs:element maxOccurs="1" name="toid" type="ala:toid"/>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="auxiliaryServiceCancellations">
+    <xs:choice maxOccurs="1">
+      <xs:element maxOccurs="unbounded" name="auxiliaryServiceCancellation" type="ala:auxiliaryServiceCancellation" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="auxiliaryServiceCancellation">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="auxiliaryServiceName" type="ala:auxiliaryServiceName" />
+      <xs:element maxOccurs="1" name="cancellationReason" type="ala:cancellationReason" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="britishAddress">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="organisationName" type="ala:organisationName" />
+      <xs:element maxOccurs="1" name="departmentName" type="ala:departmentName" />
+      <xs:element maxOccurs="1" name="subBuildingName" type="ala:subBuildingName" />
+      <xs:element maxOccurs="1" name="buildingName" type="ala:buildingName" />
+      <xs:element maxOccurs="1" name="buildingNumber" type="ala:buildingNumber" />
+      <xs:element maxOccurs="1" name="dependentThoroughfareName" type="ala:dependentThoroughfareName" />
+      <xs:element maxOccurs="1" name="dependentThoroughfareDescriptor" type="ala:dependentThoroughfareDescriptor" />
+      <xs:element maxOccurs="1" name="thoroughfareName" type="ala:thoroughfareName" />
+      <xs:element maxOccurs="1" name="thoroughfareDescriptor" type="ala:thoroughfareDescriptor" />
+      <xs:element maxOccurs="1" name="doubleDependentLocality" type="ala:doubleDependentLocality" />
+      <xs:element maxOccurs="1" name="dependentLocality" type="ala:dependentLocality" />
+      <xs:element maxOccurs="1" name="postTown" type="ala:postTown" />
+      <xs:element maxOccurs="1" name="postcode" type="ala:postcode" />
+      <xs:element maxOccurs="1" name="poBox" type="ala:poBox" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="gpsCoordinates">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="gpsLatitude" type="ala:gpsLatitude" />
+      <xs:element maxOccurs="1" name="gpsLongitude" type="ala:gpsLongitude" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="costAuthorisation">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="constructionCostAuthorisation" type="ala:constructionCostAuthorisation" />
+      <xs:element maxOccurs="1" name="timeCostAuthorisation" type="ala:timeCostAuthorisation" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="site">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="accessRestrictions" type="ala:accessRestrictions" />
+      <xs:element maxOccurs="1" name="hazards" type="ala:hazards" />
+      <xs:element maxOccurs="1" name="onSiteContactDetails" type="ala:onSiteContactDetails" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="onSiteContactDetails">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="primaryContact" type="ala:onSiteContact" />
+      <xs:element name="additionalContacts" type="ala:additionalContacts" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="onSiteContact">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="name" type="ala:name" />
+      <xs:element maxOccurs="1" name="email" type="ala:email" />
+      <xs:element maxOccurs="1" name="telephoneNumber" type="ala:telephoneNumber" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="appointmentSlots">
+    <xs:choice maxOccurs="1">
+      <xs:element maxOccurs="unbounded" name="appointmentSlot" type="ala:appointmentSlot" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="appointmentSlot">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="appointmentDate" type="ala:appointmentDate" />
+      <xs:element maxOccurs="1" name="appointmentStartTime" type="ala:appointmentStartTime" />
+      <xs:element maxOccurs="1" name="appointmentEndTime" type="ala:appointmentEndTime" />
+      <xs:element maxOccurs="1" name="appointmentCharge" type="ala:appointmentCharge" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="appointments">
+    <xs:choice maxOccurs="1">
+      <xs:element maxOccurs="unbounded" name="appointment" type="ala:appointment" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="appointment">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="appointmentDate" type="ala:appointmentDate" />
+      <xs:element maxOccurs="1" name="appointmentStartTime" type="ala:appointmentStartTime" />
+      <xs:element maxOccurs="1" name="appointmentEndTime" type="ala:appointmentEndTime" />
+      <xs:element maxOccurs="1" name="appointmentCharge" type="ala:appointmentCharge" />
+      <xs:element maxOccurs="1" name="appointmentReservationKey" type="ala:appointmentReservationKey" />
+      <xs:element maxOccurs="1" name="appointmentReservationValidUntil" type="ala:appointmentReservationValidUntil" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="auxiliaryServices">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element name="auxiliaryService" type="ala:auxiliaryService" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="auxiliaryService">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="auxiliaryServiceName" type="ala:auxiliaryServiceName" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="slaClock">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="slaClockStatus" type="ala:slaClockStatus" />
+      <xs:element maxOccurs="1" name="slaClockTime" type="ala:slaClockTime" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="slaClockStatus">
+    <xs:choice maxOccurs="1">
+      <xs:element name="stopped">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="running">
+        <xs:complexType />
+      </xs:element>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="delayed">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="awaitingResponse" type="ala:awaitingResponse" />
+      <xs:element maxOccurs="1" name="delayCode" type="ala:delayCode" />
+      <xs:element maxOccurs="1" name="delayMessage" type="ala:delayMessage" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="acceptCharges">
+    <xs:choice maxOccurs="1">
+      <xs:element name="yes">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="no">
+        <xs:complexType />
+      </xs:element>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="orderUpdate">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="orderUpdatedBy" type="ala:orderUpdatedBy" />
+      <xs:element maxOccurs="1" name="orderUpdateReferences" type="ala:orderReferences" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="orderUpdatedBy">
+    <xs:choice maxOccurs="1">
+      <xs:element name="buyer">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="seller">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="endUser">
+        <xs:complexType />
+      </xs:element>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="alaOrderStatus">
+    <xs:choice maxOccurs="1">
+      <xs:element name="pending">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="acknowledged">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="committed">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="completed">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="rejected">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="cancelled">
+        <xs:complexType />
+      </xs:element>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+
+  <xs:complexType name="orderChangeType">
+    <xs:choice maxOccurs="1">
+      <xs:element name="appointmentChanged">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="appointmentNotUsed">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="locationChanged">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="committedDateChanged">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="requestedDateChanged">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="productChanged">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="serviceChanged">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="auxiliaryServiceChanged">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="otherChanged" type="ala:otherChanged"/>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="appointmentType">
+    <xs:choice maxOccurs="1">
+      <xs:element name="order">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="fault">
+        <xs:complexType />
+      </xs:element>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="awaitingResponse">
+    <xs:choice maxOccurs="1">
+      <xs:element name="awaitingAppointment" type="ala:awaitingAppointment"/>
+      <xs:element name="awaitingInformation" type="ala:awaitingInformation"/>
+      <xs:element name="awaitingAcceptCharges">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="no">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="awaitingOther" type="ala:awaitingOther"/>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="awaitingAppointment">
+    <xs:choice maxOccurs="1">
+      <xs:element name="sellerMissedAppointment">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="endUserMissedAppointment">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="appointmentRequired">
+        <xs:complexType />
+      </xs:element>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="orderError">
+    <xs:choice maxOccurs="1">
+      <xs:element name="duplicateOrder">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="invalidBuyer">
+        <xs:complexType />
+      </xs:element>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="dateRangeQueryError">
+    <xs:choice maxOccurs="1">
+      <xs:element name="maximumRangeExceeded">
+        <xs:complexType />
+      </xs:element>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="cancellationError">
+    <xs:choice maxOccurs="1">
+      <xs:element name="tooLateToCancel">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="invalidBuyer">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="invalidOrderReference">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="orderCompletedOrFailed">
+        <xs:complexType />
+      </xs:element>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="pollError">
+    <xs:choice maxOccurs="1">
+      <xs:element name="pollDateRangeTooLarge" type="ala:pollDateRangeTooLarge"/>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="pollDateRangeTooLarge">
+    <xs:choice maxOccurs="1">
+      <xs:element name="suggestedPollDateRange" type="ala:pollDateRange"/>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="pollDateRange">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="pollStartDate" type="ala:pollStartDate"/>
+      <xs:element maxOccurs="1" name="pollEndDate" type="ala:pollEndDate"/>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="republishError">
+    <xs:choice maxOccurs="1">
+      <xs:element name="republishDateRangeTooLarge" type="ala:republishDateRangeTooLarge"/>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="republishDateRangeTooLarge">
+    <xs:choice maxOccurs="1">
+      <xs:element name="suggestedPollDateRange" type="ala:republishDateRange"/>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="republishDateRange">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="republishStartDate" type="ala:republishStartDate"/>
+      <xs:element maxOccurs="1" name="republishEndDate" type="ala:republishEndDate"/>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="amendmentError">
+    <xs:choice maxOccurs="1">
+      <xs:element name="invalidBuyer">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="invalidOrderReference">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="tooLateToAmend">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="orderCompletedOrFailed">
+        <xs:complexType />
+      </xs:element>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="validationFailures">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element name="validationFailure" type="ala:validationFailure" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="validationFailure">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="validationFailureField" type="ala:validationFailureField"/>
+      <xs:element maxOccurs="1" name="validationFailureMessage" type="ala:validationFailureMessage"/>
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="errorCodeAndMessage">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="errorCode" type="ala:errorCode"/>
+      <xs:element maxOccurs="1" name="errorMessage" type="ala:errorMessage"/>
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="awaitingInformation">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="informationCode" type="ala:informationCode"/>
+      <xs:element maxOccurs="1" name="informationMessage" type="ala:informationMessage"/>
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="warning">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="warningCode" type="ala:warningCode"/>
+      <xs:element maxOccurs="1" name="warningMessage" type="ala:warningMessage"/>
+    </xs:choice>
+  </xs:complexType>
+
+
+  <xs:complexType name="addressKeyType">
+    <xs:choice maxOccurs="1">
+      <xs:element name="temporaryAddressKey">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="recognisedAddressKey">
+        <xs:complexType />
+      </xs:element>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xs:choice>
+  </xs:complexType>
+
+  <!-- simple types -->
+
+  <xs:simpleType name="validationFailureField">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="63" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="validationFailureMessage">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="errorCode">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="36" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="errorMessage">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="informationCode">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="36" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="informationMessage">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="1024" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="correlationId">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="36" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="messageId">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="36" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="sentAt">
+    <xs:restriction base="xs:dateTime" />
+  </xs:simpleType>
+  <xs:simpleType name="buyerOrderReference">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="36" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="sellerOrderReference">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="36" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="requiredOrderReference">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="36" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="projectOrderReference">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="36" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="buyerIdentifier">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="36" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="email">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="254" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="telephoneNumber">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="50" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="sellerIdentifier">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="36" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="vlanId">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="1" />
+      <xs:maxInclusive value="4094" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="uniVlanId">
+    <xs:restriction base="ala:vlanId" />
+  </xs:simpleType>
+
+  <xs:simpleType name="untaggedSVlanId">
+    <xs:restriction base="ala:vlanId" />
+  </xs:simpleType>
+
+  <xs:simpleType name="uniAucGroupIdentifier">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="45" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="aucRemoteId">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="63" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="nniIdentifier">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="45" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="nniAucGroupIdentifier">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="45" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="uniAucEndPointIdentifier">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="45" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="aucCircuitId">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="63" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="aucNniEndPoint">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="45" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="macKey">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="63" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="addressKey">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="63" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="productName">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="254" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="auxiliaryServiceName">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="254" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="note">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="2047" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="constructionCostAuthorisation">
+    <xs:restriction base="xs:decimal" />
+  </xs:simpleType>
+
+  <xs:simpleType name="timeCostAuthorisation">
+    <xs:restriction base="xs:decimal" />
+  </xs:simpleType>
+
+  <xs:simpleType name="accessRestrictions">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="1024" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="hazards">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="1024" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="appointmentReservationKey">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="36" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="name">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="127" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="cancellationReasonCode">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="36" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="cancellationReasonMessage">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="serviceIdentifier">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="macValidUntil">
+    <xs:restriction base="xs:dateTime"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="requestedDate">
+    <xs:restriction base="xs:dateTime"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="committedDate">
+    <xs:restriction base="xs:dateTime"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="completedDate">
+    <xs:restriction base="xs:dateTime"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="additionalChargeProductName">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="additionalChargeCode">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="additionalChargeMessage">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="additionalChargeAmount">
+    <xs:restriction base="xs:decimal"/>
+  </xs:simpleType>
+
+  <!-- british address -->
+
+  <xs:simpleType name="organisationName">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="63"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="departmentName">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="63"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="subBuildingName">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="63"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="buildingName">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="63"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="buildingNumber">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="63"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="dependentThoroughfareName">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="63"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="dependentThoroughfareDescriptor">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="63"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="thoroughfareName">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="63"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="thoroughfareDescriptor">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="63"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="doubleDependentLocality">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="63"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="dependentLocality">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="63"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="postTown">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="63"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="postcode">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="63"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="poBox">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="63"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="gpsLatitude">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="12"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="appointmentsFrom">
+    <xs:restriction base="xs:date"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="technology">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="63"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="delayCode">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="35"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="delayMessage">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="warningCode">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="35"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="warningMessage">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="otherChanged">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="awaitingOther">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="gpsLongitude">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="12"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="gridReference">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="10"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="appointmentDate">
+    <xs:restriction base="xs:date"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="appointmentReservationValidUntil">
+    <xs:restriction base="xs:dateTime"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="pollStartDate">
+    <xs:restriction base="xs:dateTime"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="pollEndDate">
+    <xs:restriction base="xs:dateTime"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="republishStartDate">
+    <xs:restriction base="xs:dateTime"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="republishEndDate">
+    <xs:restriction base="xs:dateTime"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="issuedAt">
+    <xs:restriction base="xs:dateTime"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="appointmentStartTime">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="5"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="appointmentEndTime">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="5"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="appointmentCharge">
+    <xs:restriction base="xs:decimal"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="chargeDate">
+    <xs:restriction base="xs:dateTime"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="chargeAmount">
+    <xs:restriction base="xs:decimal"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="chargeCode">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="64"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="chargeMessage">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="sequenceNumber">
+    <xs:restriction base="xs:integer"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="toid">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="20"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="slaClockTime">
+    <xs:restriction base="xs:duration"/>
+  </xs:simpleType>
+
+</xs:schema>

@@ -1,0 +1,36 @@
+<queryProductsForLocationRequest xmlns="http://www.niccstandards.org.uk/ala_1.0.xsd">
+  
+  <message>  
+    <messageId>b68b2cf4-475e-11e1-a92e-fb2ff6467c99</messageId>
+    <correlationId>bac72cfa-475e-11e1-a92e-fb2ff6467c99</correlationId>
+    <sentAt>2012-01-20T18:30:43Z</sentAt>
+  </message>
+  
+  <buyer>
+    <buyerIdentifier>1234567890</buyerIdentifier>
+  </buyer>
+
+  <seller>
+    <sellerIdentifier>1234567890</sellerIdentifier>
+  </seller>
+
+  <telephoneNumber>02013040538</telephoneNumber> <!-- only for the ADSL case? -->
+
+  <location>
+    <britishAddress>
+      <buildingName>490 Example Cottage</buildingName>
+      <thoroughfareName>High St</thoroughfareName>
+      <dependentLocality>Market Deeping</dependentLocality>
+      <postTown>Peterborough</postTown>
+      <postcode>PE6 8ED</postcode>
+    </britishAddress>
+
+    <gpsCoordinates>
+      <gpsLatitude>N 37 23.516</gpsLatitude>
+      <gpsLongitude>W 122 02.625</gpsLongitude>
+    </gpsCoordinates>
+
+    <gridReference>SK123456</gridReference>
+  </location>
+  
+</queryProductsForLocationRequest>

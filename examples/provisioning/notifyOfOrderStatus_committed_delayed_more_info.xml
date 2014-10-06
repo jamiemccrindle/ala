@@ -1,0 +1,62 @@
+<notifyOfOrderStatus xmlns="http://www.niccstandards.org.uk/ala_1.0.xsd">
+
+  <message>
+    <messageId>b68b2cf4-475e-11e1-a92e-fb2ff6467c99</messageId>
+    <correlationId>bac72cfa-475e-11e1-a92e-fb2ff6467c99</correlationId>
+    <sentAt>2012-01-20T18:30:43Z</sentAt>
+  </message>
+
+  <buyer>
+    <buyerIdentifier>1234567890</buyerIdentifier>
+  </buyer>
+
+  <seller>
+    <sellerIdentifier>1234567890</sellerIdentifier>
+  </seller>
+
+  <orderReferences>
+    <buyerOrderReference>1234567</buyerOrderReference>
+    <sellerOrderReference>1234567</sellerOrderReference>
+  </orderReferences>
+
+  <issuedAt>2012-01-20T18:30:43Z</issuedAt>
+  <sequenceNumber>5</sequenceNumber>
+
+  <alaOrderStatus>
+    <committed/>
+  </alaOrderStatus>
+
+  <alaOrderInProgress>
+    <location>
+      <britishAddress>
+        <buildingName>490 Example Cottage</buildingName>
+        <thoroughfareName>High St</thoroughfareName>
+        <dependentLocality>Market Deeping</dependentLocality>
+        <postTown>Peterborough</postTown>
+        <postcode>PE6 8ED</postcode>
+      </britishAddress>
+      <addressKey>1234567</addressKey>
+    </location>
+    <serviceIdentifier>2345432345345</serviceIdentifier>
+    <delayed>
+      <awaitingResponse>
+        <awaitingInformation>
+          <informationCode>53542</informationCode>
+          <informationMessage>Please confirm customer will be at site</informationMessage>
+        </awaitingInformation>
+      </awaitingResponse>
+      <delayCode>123456</delayCode>
+      <delayMessage>Delayed</delayMessage>
+    </delayed>
+  </alaOrderInProgress>
+
+  <slaClock>
+    <slaClockStatus>
+      <stopped/>
+    </slaClockStatus>
+    <slaClockTime>P10DT24M</slaClockTime>
+  </slaClock>
+
+  <notes></notes>
+
+</notifyOfOrderStatus>

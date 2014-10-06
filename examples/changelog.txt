@@ -1,0 +1,79 @@
+== 2012/08/13 ==
+
+Added the activeServices and activeService elements
+Wrapped the queryInstallationDetails response in an activeService element
+Added the queryLineAvailability service
+
+== 2012/08/06 ==
+
+= Order Status =
+
+Changed alaOrderPending, alaOrderAcknowledged and alaOrderCommitted to alaOrderInProgress. Wrapped the alaOrderCancelled
+and alaOrderRejected in an alaOrderFailed. This means that the top level elements are:
+
+* alaOrderInProgress
+* alaOrderFailed
+* alaOrderCompleted
+
+More specific status is now communicated via the alaOrderStatus element e.g.:
+
+    <alaOrderStatus>
+      <acknowledged/>
+    </alaOrderStatus>
+
+= Charges =
+
+Added additionalCharges element into alaOrderCompleted to indicate that these are the additional charges that apply
+when the order completes.
+
+== 2012/05/25 ==
+
+= Cancellation and Amendment Order References =
+
+Added cancellation and amendment order references. These should only be used in the order status update responses,
+specifically:
+
+acknowledged, committed and cancelled.
+
+This allows SPs to confirm that their amendment or cancellation was accepted.
+
+XML as follows:
+
+    <cancellationRejected>
+      <cancellationError>
+        <tooLateToCancel/>
+      </cancellationError>
+      <cancellationReferences>
+        <buyerOrderReference>12345678</buyerOrderReference>
+        <sellerOrderReference>12345678</sellerOrderReference>
+      </cancellationReferences>
+    </cancellationRejected>
+
+Example in notifyOfOrderStatus_committed_cancellation_ignored.xml
+
+== AuxiliaryService Cancellations ==
+
+Allow ALA Providers to communicate that they can't fulfil an auxiliary service. Valid in the following
+notifyOfOrderStatusUpdate messages:
+
+acknowledged, cancelled, committed, completed
+
+XML as follows:
+
+    <auxiliaryServiceCancellations>
+      <auxiliaryServiceCancellation>
+        <auxiliaryServiceName>Home Install</auxiliaryServiceName>
+        <cancellationReason>
+          <cancelledBy><buyer/></cancelledBy>
+          <cancellationReasonCode>123456</cancellationReasonCode>
+          <cancellationReasonMessage>No longer required</cancellationReasonMessage>
+        </cancellationReason>
+      </auxiliaryServiceCancellation>
+    </auxiliaryServiceCancellations>
+
+Example in notifyOfOrderStatus_acknowledged_accept_charges.xml
+
+== 2012/12/11 ==
+
+Updated toid to be a 20 character string
+Removed unnecessary xml:any elements in cancelOrderResponse and amendOrderResponse
